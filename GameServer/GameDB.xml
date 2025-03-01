@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameDB>
+	<Table name="Account" desc="계정">
+		<Column name="id" type="int" notnull="true" identity="1,1" />
+		<Column name="type" type="int" notnull="false" />
+		<Column name="name" type="nvarchar(50)" notnull="false" />
+		<Column name="password" type="nvarchar(50)" notnull="false" />
+		<Column name="createDate" type="datetime" notnull="false" />
+		<Index type="clustered">
+			<PrimaryKey/>
+			<Column name="id" />
+		</Index>
+	</Table>
+
+	<Procedure name="spInsertAccount">
+		<Param name="@type" type="int"/>
+		<Param name="@name" type="nvarchar(50)"/>
+		<Param name="@password" type="nvarchar(50)"/>s
+		<Param name="@createDate" type="datetime"/>
+		<Body>
+			<![CDATA[
+			INSERT INTO [dbo].[Account]([type], [name], [password], [createDate]) VALUES(@type, @name, @password, @createDate);
+			]]>
+		</Body>
+	</Procedure>
+
+	<Procedure name="spGetAccount">
+		<Param name="@name" type="nvarchar(50)"/>
+		<Body>
+			<![CDATA[
+			SELECT id, type, name, password, createDate FROM [dbo].[Account] WHERE name = (@name)
+			]]>
+		</Body>
+	</Procedure>
+
+</GameDB>
